@@ -20,18 +20,16 @@ class TrainingHandler:
         """
         Процесс обучения всех моделей
         """
-        X_train, X_test, y_train, y_test = self.data_handler.get_data()
-
         for model in self.models:
             # обучение модели
-            model.fit(X_train, y_train)
+            model.fit(self.data_handler.X_train, self.data_handler.y_train)
             
             # Оценка модели на тестовых данных
-            y_pred = model.predict(X_test)
-            print(f"[INFO] Оценка модели {self.models.model_type} на тестовых данных:")
-            print(classification_report(y_test, y_pred))
+            y_pred = model.predict(self.data_handler.X_test)
+            print(f"[INFO] Оценка модели {self.model.model_type} на тестовых данных:")
+            print(classification_report(self.data_handler.y_, y_pred))
 
             # Сохранение модели
-            model_path = f"{self.output_dir}/{self.models.model_type}_model.pkl"
+            model_path = f"{self.output_dir}/{self.model.model_type}_model.pkl"
             model.save_model(model_path)
             print(f"[INFO] Модель {self.models.model_type} сохранена по пути: {model_path}")

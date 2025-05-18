@@ -41,8 +41,13 @@ class ModelHandler:
 
     def save_model(self, path):
         joblib.dump(self.model, path)
+        self.model_path = path
         print(f"[INFO] Модель сохранена в: {path}")
 
     def load_model(self, path):
-        self.model = joblib.load(path)
-        print(f"[INFO] Модель загружена из: {path}")
+        try:
+            self.model = joblib.load(path)
+            self.model_path = path
+            print(f"[INFO] Модель загружена из: {path}")
+        except FileNotFoundError:
+            print(f"[ERROR] Модель не найдена по пути {model_path}")
