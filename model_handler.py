@@ -15,7 +15,7 @@ class ModelHandler:
                 activation="relu",
                 solver="adam",
                 max_iter=300,
-                random_state=42
+                random_state=6878
             )
         elif self.model_type == "xgboost":
             self.model = XGBClassifier(
@@ -23,7 +23,7 @@ class ModelHandler:
                 learning_rate=0.1,
                 use_label_encoder=False,
                 eval_metric="mlogloss",
-                random_state=42
+                random_state=6878
             )
         else:
             raise ValueError(f"Неизвестный тип модели: {self.model_type}")
@@ -41,8 +41,13 @@ class ModelHandler:
 
     def save_model(self, path):
         joblib.dump(self.model, path)
+        self.model_path = path
         print(f"[INFO] Модель сохранена в: {path}")
 
     def load_model(self, path):
-        self.model = joblib.load(path)
-        print(f"[INFO] Модель загружена из: {path}")
+        try:
+            self.model = joblib.load(path)
+            self.model_path = path
+            print(f"[INFO] Модель загружена из: {path}")
+        except FileNotFoundError:
+            print(f"[ERROR] Модель не найдена по пути {model_path}")
