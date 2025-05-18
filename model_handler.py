@@ -15,7 +15,7 @@ class ModelHandler:
                 activation="relu",
                 solver="adam",
                 max_iter=300,
-                random_state=42
+                random_state=6878
             )
         elif self.model_type == "xgboost":
             self.model = XGBClassifier(
@@ -23,7 +23,7 @@ class ModelHandler:
                 learning_rate=0.1,
                 use_label_encoder=False,
                 eval_metric="mlogloss",
-                random_state=42
+                random_state=6878
             )
         else:
             raise ValueError(f"Неизвестный тип модели: {self.model_type}")
