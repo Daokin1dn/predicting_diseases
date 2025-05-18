@@ -65,7 +65,7 @@ class DataHandler:
         return self.X_train, self.X_test, self.y_train, self.y_test
     
     def save_class_instance(self, filename="processed_dataset.csv"):
-        output_path = os.path.join("data",filename)
+        output_path = os.path.join(self.file_path, filename)
         self.df.to_csv(output_path, index=False, encoding="utf-8")
         print(f"[INFO] Обработанный CSV сохранён: {output_path}")
 
