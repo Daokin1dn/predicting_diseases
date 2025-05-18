@@ -28,6 +28,7 @@ class PredictionHandler:
         majority_predictions = EnsembleHandler(all_predictions).predict_majority_vote()
         return majority_predictions
 
+#TODO доделать все и для CLI
 
 # class PredictionHandler:
 #     def __init__(self, models_dir='models/', models={}):
