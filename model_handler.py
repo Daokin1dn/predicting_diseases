@@ -6,10 +6,11 @@ class ModelHandler:
     def __init__(self, model_type="mlp", model_path=None):
         self.model_type = model_type
         self.model_path = model_path
+        self.initialize_model()
         self.model = None
 
     def initialize_model(self):
-        if self.model_type == "mlp":
+        if self.model_type.lower() == "mlp":
             self.model = MLPClassifier(
                 hidden_layer_sizes=(64, 32),
                 activation="relu",
@@ -17,7 +18,7 @@ class ModelHandler:
                 max_iter=300,
                 random_state=6878
             )
-        elif self.model_type == "xgboost":
+        elif self.model_type.lower() == "xgboost":
             self.model = XGBClassifier(
                 n_estimators=100,
                 learning_rate=0.1,

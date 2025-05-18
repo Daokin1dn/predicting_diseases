@@ -12,10 +12,11 @@ class DiseasePredictionAPI:
         self.training_handler = None
         self.prediction_handler = None
 
-    def models_initializer(model_types):
+    def models_initializer(seld, model_types={"MLP", "XGBoost"}):
         models = []
         for model_type in model_types:
-            models.append(ModelHandler(model_type).initialize_model())
+            models.append(ModelHandler(model_type))
+            print(models)            
         return models 
 
     def load_data(self):
@@ -26,13 +27,14 @@ class DiseasePredictionAPI:
     def train(self, output_dir='models/'):
         self.training_handler = TrainingHandler(self.models, self.data_handler, output_dir)
         self.training_handler.train()
-        return self.model
+        return self.models
 
     def predict(self, input_data=None, models_dir='models/'):
-        self.prediction_handler = PredictionHandler(models_dir, self.models)
+        self.prediction_handler = PredictionHandler(self.models, models_dir)
 
         if input_data is None:
             input_data = self.data_handler.X_test
+            print(self.data_handler.X_test)
         return self.prediction_handler.predict(input_data)
 
     def evaluate(self, y_true=None, y_pred=None, show_plots=False):

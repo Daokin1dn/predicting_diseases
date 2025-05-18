@@ -1,10 +1,8 @@
-import joblib
-import numpy as np
 from model_handler import ModelHandler
-from evaluation_handler import EnsembleHandler
+from ensemble_handler import EnsembleHandler
 
 class PredictionHandler:
-    def __int__(self,  models_dir='models/', models):
+    def __init__(self, models, models_dir='models/'):
         """
         models: экземпляры ModelHandler
         models_dir: Директория где хранятся обученные модели
@@ -12,7 +10,7 @@ class PredictionHandler:
         self.models_dir = models_dir
         self.models = models
 
-    def predictions(input_data):
+    def predict(self, input_data):
         """
          Метод для предсказания с выводом результата
         """
@@ -23,9 +21,10 @@ class PredictionHandler:
                 model.load_model(model_path)
             prediction = model.predict(input_data)
             all_predictions.append(model.predict(input_data))
-            print(f"[INFO] Результат предсказания для модели {model_name}: {prediction}")
+            print(f"[INFO] Результат предсказания для модели  {model.model_type}: {prediction}")
         
         majority_predictions = EnsembleHandler(all_predictions).predict_majority_vote()
+        print(f"[INFO] Результат предсказания после ансамблирования: {majority_predictions}")
         return majority_predictions
 
 #TODO доделать все и для CLI

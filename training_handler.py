@@ -1,5 +1,5 @@
 import joblib
-from sklearn.model_selection import GridSearchCV, train_test_split
+from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import classification_report
 from model_handler import ModelHandler
 from data_handler import DataHandler
@@ -22,14 +22,14 @@ class TrainingHandler:
         """
         for model in self.models:
             # обучение модели
-            model.fit(self.data_handler.X_train, self.data_handler.y_train)
+            model.train(self.data_handler.X_train, self.data_handler.y_train)
             
             # Оценка модели на тестовых данных
             y_pred = model.predict(self.data_handler.X_test)
-            print(f"[INFO] Оценка модели {self.model.model_type} на тестовых данных:")
-            print(classification_report(self.data_handler.y_, y_pred))
+            print(f"[INFO] Оценка модели {model.model_type} на тестовых данных:")
+            print(classification_report(self.data_handler.y_test, y_pred))
 
             # Сохранение модели
-            model_path = f"{self.output_dir}/{self.model.model_type}_model.pkl"
+            model_path = f"{self.output_dir}/{model.model_type}_model.pkl"
             model.save_model(model_path)
-            print(f"[INFO] Модель {self.models.model_type} сохранена по пути: {model_path}")
+            print(f"[INFO] Модель {model.model_type} сохранена по пути: {model_path}")
