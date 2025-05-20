@@ -1,3 +1,16 @@
+# Copyright 2025 Abdiraimov Daniyar
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -28,18 +41,21 @@ class EvaluationHandler:
 
         return results
 
-    def plot_confusion_matrix(self, cm, class_names):
+    def plot_confusion_matrix(self, cm, class_names=None):
         """
         Визуализация матрицы ошибок с помощью seaborn.
         cm: матрица ошибок
         class_names: имена классов (для меток на оси)
         """
+
         plt.figure(figsize=(8, 6))
-        sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=class_names, yticklabels=class_names)
+        sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=range(cm.size), yticklabels=range(cm.size))
         plt.xlabel('Предсказанные метки')
         plt.ylabel('Истинные метки')
         plt.title('Матрица ошибок')
         plt.show()
+
+        
 
     def print_evaluation_report(self, results):
         print(f"Точность (Accuracy): {results['accuracy']:.4f}")

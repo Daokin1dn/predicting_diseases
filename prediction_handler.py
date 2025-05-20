@@ -1,3 +1,17 @@
+# Copyright 2025 Abdiraimov Daniyar
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 from model_handler import ModelHandler
 from ensemble_handler import EnsembleHandler
 
@@ -17,14 +31,15 @@ class PredictionHandler:
         all_predictions = []
         for model in self.models:
             if model.model_path is None:
-                model_path = f"{self.models_dir}/{self.model.model_type}_model.pkl"
+                model_path = f"{self.models_dir}/{model.model_type}_model.pkl"
                 model.load_model(model_path)
             prediction = model.predict(input_data)
             all_predictions.append(model.predict(input_data))
-            print(f"[INFO] Результат предсказания для модели  {model.model_type}: {prediction}")
+            print(f"[INFO] Результат предсказания для модели  {model.model_type}: \n {prediction}")
         
         majority_predictions = EnsembleHandler(all_predictions).predict_majority_vote()
         print(f"[INFO] Результат предсказания после ансамблирования: {majority_predictions}")
+
         return majority_predictions
 
 #TODO доделать все и для CLI
