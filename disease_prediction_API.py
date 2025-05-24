@@ -51,7 +51,7 @@ class DiseasePredictionAPI:
         else:
             input_data = self.data_handler.transform_user_input(user_input)
             
-        print(input_data)
+        #print(input_data)
 
         predictions = self.prediction_handler.predict(input_data)
         readable_results = self.data_handler.recover_predictions(input_data, predictions)

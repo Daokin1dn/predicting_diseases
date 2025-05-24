@@ -37,8 +37,8 @@ class TrainingHandler:
             
             # Оценка модели на тестовых данных
             y_pred = model.predict(self.data_handler.X_test)
-            print(f"[INFO] Оценка модели {model.model_type} на тестовых данных:")
-            print(classification_report(self.data_handler.y_test, y_pred))
+            # print(f"[INFO] Оценка модели {model.model_type} на тестовых данных:")
+            # print(classification_report(self.data_handler.y_test, y_pred))
 
             # Сохранение модели
             model_path = f"{self.output_dir}/{model.model_type}_model.pkl"

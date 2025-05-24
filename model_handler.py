@@ -26,7 +26,7 @@ class ModelHandler:
     def initialize_model(self):
         if self.model_type.lower() == "mlp":
             self.model = MLPClassifier(
-                hidden_layer_sizes=(64, 32),
+                hidden_layer_sizes=(128, 64),
                 activation="relu",
                 solver="adam",
                 max_iter=300,
@@ -34,7 +34,7 @@ class ModelHandler:
             )
         elif self.model_type.lower() == "xgboost":
             self.model = XGBClassifier(
-                n_estimators=100,
+                n_estimators=131,
                 learning_rate=0.1,
                 use_label_encoder=False,
                 eval_metric="mlogloss",
